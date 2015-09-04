@@ -1,0 +1,173 @@
+<?xml version="1.0"	encoding="gb2312" standalone="no"?>
+<?xml-stylesheet type="text/xsl" href="../V6_Schema.xsl"?>
+<!DOCTYPE app-data SYSTEM "../V6_Schema.dtd">
+<app-data>
+	<database id="lhmh_td" name="交易数据库" schema="">
+		<subsystem id="fc">	
+			<module	id="ts" name="框架基础">
+				<submodule id="BASE" name="基础表">
+					<table id="T_S_BASE_USER" name="用户表"  compress="否" partition="否" volume="百" period="全部" notlog="否">
+						<rem> ==================================================================== 	</rem>
+						<rem> 用户表													</rem>
+						<rem> 输入人:张文杰      输入时间:2015.07.09  	</rem>
+						<rem> ==================================================================== 	</rem>
+						<column id="ID" type="VARCHAR" primaryKey="true" required="true" size="30" name="主键"/>
+						<column id="ACTIVITISYNC"  type="VARCHAR" size="30" name=""/>
+						<column id="BROWSER"  type="INTEGER" name=""/>
+						<column id="PASSWORD"  type="INTEGER" name="密码"/>
+						<column id="REALNAME"  type="INTEGER" name="真实姓名"/>
+						<column id="SIGNATURE"  type="INTEGER" name=""/>
+						<column id="STATUS"  type="INTEGER" name="状态"/>
+						<column id="USERKEY"  type="INTEGER" name=""/>
+						<column id="USERNAME"  type="INTEGER" name="用户名"/>
+						<column id="DEPARTID"  type="INTEGER" name="岗位"/>
+						<foreign-key foreignTable="T_S_DEPART" noSql="true">
+							<reference local="DEPARTID" foreign="ID"/>
+						</foreign-key>
+					</table>				
+
+					<table id="T_S_USER" name="用户扩展表"  compress="否" partition="否" volume="百" period="全部" notlog="否">
+						<rem> ==================================================================== 	</rem>
+						<rem> 用户扩展表												</rem>
+						<rem> 输入人:张文杰      输入时间:2015.07.09  	</rem>
+						<rem> ==================================================================== 	</rem>
+						<column id="ID" type="VARCHAR" primaryKey="true" required="true" size="32" name="主键"/>
+						<column id="EMAIL"  type="VARCHAR" size="50" name="EMAIL"/>
+						<column id="MOBILEPHONE"  type="VARCHAR" size="30" name="电话"/>
+						<column id="OFFICEPHONE"  type="VARCHAR" size="20" name="公司电话"/>
+						<column id="SIGNATUREFILE" type="VARCHAR" size="100" name=""/>
+						<foreign-key foreignTable="T_S_DEPART" noSql="true">
+							<reference local="DEPARTID" foreign="ID"/>
+						</foreign-key>
+					</table>	
+					
+					<table id="T_S_DEPART" name="岗位(部门)表"  compress="否" partition="否" volume="百" period="全部" notlog="否">
+						<rem> ==================================================================== 	</rem>
+						<rem> 岗位(部门)表													</rem>
+						<rem> 输入人:张文杰      输入时间:2015.07.09  	</rem>
+						<rem> ==================================================================== 	</rem>
+						<column id="ID" primaryKey="true" required="true"  type="VARCHAR" size="32"  name="主键"/>
+						<column id="DEPARTNAME"   type="VARCHAR" size="32"  name="岗位名(部门名)"/>
+						<column id="DESCRIPTION"  type="VARCHAR" size="32"  name="描述"/>
+						<column id="PARENTDEPARTID"  type="VARCHAR" size="32"  name="上级ID"/>
+					</table>
+					
+					<table id="T_S_USER_ORG" name="用户岗位对应表"  compress="否" partition="否" volume="百" period="全部" notlog="否">
+						<rem> ==================================================================== 	</rem>
+						<rem> 岗位(部门)表													</rem>
+						<rem> 输入人:张文杰      输入时间:2015.07.09  	</rem>
+						<rem> ==================================================================== 	</rem>
+						<column id="ID" type="VARCHAR" primaryKey="true" required="true" size="32" name="主键"/>
+						<column id="ORG_ID"  type="VARCHAR" size="32" name="岗位(部门)ID"/>
+						<column id="USER_ID"  type="VARCHAR" size="32" name="用户ID"/>
+						<foreign-key foreignTable="T_S_DEPART" noSql="true">
+							<reference local="ORG_ID" foreign="ID"/>
+						</foreign-key>		
+						<foreign-key foreignTable="T_S_BASE_USER" noSql="true">
+							<reference local="USER_ID" foreign="ID"/>
+						</foreign-key>											
+					</table>	
+					
+					<table id="T_S_FUNCTION" name="功能表"  compress="否" partition="否" volume="百" period="全部" notlog="否">
+						<rem> ==================================================================== 	</rem>
+						<rem> 功能表												</rem>
+						<rem> 输入人:张文杰      输入时间:2015.07.10  	</rem>
+						<rem> ==================================================================== 	</rem>
+						<column id="ID" type="VARCHAR" primaryKey="true" required="true" size="32" name="主键"/>
+						<column id="FUNCTIONIFRAME"  type="VARCHAR" size="32" name=""/>
+						<column id="FUNCTIONLEVEL"  type="VARCHAR" size="32" name="级别"/>
+						<column id="FUNCTIONNAME"  type="VARCHAR" size="32" name="功能名称"/>
+						<column id="FUNCTIONORDER"  type="VARCHAR" size="32" name="序号"/>
+						<column id="FUNCTIONURL"  type="VARCHAR" size="32" name="URL"/>
+						<column id="PARENTFUNCTIONID"  type="VARCHAR" size="32" name="父菜单"/>
+						<column id="ICONID"  type="VARCHAR" size="32" name="缩略图ID"/>
+					</table>
+					
+					<table id="T_S_OPERATION" name="功能表"  compress="否" partition="否" volume="百" period="全部" notlog="否">
+						<rem> ==================================================================== 	</rem>
+						<rem> 功能表												</rem>
+						<rem> 输入人:张文杰      输入时间:2015.07.10  	</rem>
+						<rem> ==================================================================== 	</rem>
+						<column id="ID" type="VARCHAR" primaryKey="true" required="true" size="32" name="主键"/>
+						<column id="OPERATIONCODE"  type="VARCHAR" size="32" name="操作编码"/>
+						<column id="OPERATIONICON"  type="VARCHAR" size="32" name="缩略图"/>
+						<column id="OPERATIONNAME"  type="VARCHAR" size="32" name="操作名称"/>
+						<column id="STATUS"  type="VARCHAR" size="32" name="状态"/>
+						<column id="FUNCTIONID"  type="VARCHAR" size="32" name="功能ID"/>
+						<column id="ICONID"  type="VARCHAR" size="32" name="缩略图ID"/>
+						<foreign-key foreignTable="T_S_FUNCTION" noSql="true">
+							<reference local="FUNCTIONID" foreign="ID"/>
+						</foreign-key>							
+					</table>					
+					
+					<table id="T_S_ROLE" name="角色"  compress="否" partition="否" volume="百" period="全部" notlog="否">
+						<rem> ==================================================================== 	</rem>
+						<rem> 功能表												</rem>
+						<rem> 输入人:张文杰      输入时间:2015.07.10  	</rem>
+						<rem> ==================================================================== 	</rem>
+						<column id="ID" type="VARCHAR" primaryKey="true" required="true" size="32" name="主键"/>
+						<column id="ROLECODE"  type="VARCHAR" size="10" name="角色编码"/>		
+						<column id="ROLENAME"  type="VARCHAR" size="10" name="角色名称"/>								
+					</table>
+					
+					<table id="T_S_ROLE_FUNCTION" name="角色功能表"  compress="否" partition="否" volume="百" period="全部" notlog="否">
+						<rem> ==================================================================== 	</rem>
+						<rem> 角色功能表											</rem>
+						<rem> 输入人:张文杰      输入时间:2015.07.10  	</rem>
+						<rem> ==================================================================== 	</rem>
+						<column id="ID" type="VARCHAR" primaryKey="true" required="true" size="32" name="主键"/>
+						<column id="OPERATION"  type="VARCHAR" size="100" name="操作ID:以,分隔"/>		
+						<column id="FUNCTIONID"  type="VARCHAR" size="32" name="功能ID"/>		
+						<column id="ROLEID"  type="VARCHAR" size="32" name="角色ID"/>	
+					</table>
+					
+					<table id="T_S_ROLE_ORG" name="角色岗位表"  compress="否" partition="否" volume="百" period="全部" notlog="否">
+						<rem> ==================================================================== 	</rem>
+						<rem> 角色岗位表										</rem>
+						<rem> 输入人:张文杰      输入时间:2015.07.10  	</rem>
+						<rem> ==================================================================== 	</rem>
+						<column id="ID" type="VARCHAR" primaryKey="true" required="true" size="32" name="主键"/>
+						<column id="ORG_ID"  type="VARCHAR" size="32" name="岗位ID"/>		
+						<column id="ROLE_ID"  type="VARCHAR" size="32" name="角色ID"/>	
+					</table>
+					
+					<table id="T_S_ROLE_USER" name="用户角色表"  compress="否" partition="否" volume="百" period="全部" notlog="否">
+						<rem> ==================================================================== 	</rem>
+						<rem> 用户角色表												</rem>
+						<rem> 输入人:张文杰      输入时间:2015.07.10  	</rem>
+						<rem> ==================================================================== 	</rem>
+						<column id="ID" type="VARCHAR" primaryKey="true" required="true" size="32" name="主键"/>
+						<column id="USERID"  type="VARCHAR" size="32" name="用户ID"/>		
+						<column id="ROLEID"  type="VARCHAR" size="32" name="角色ID"/>	
+					</table>					
+					
+
+					
+					
+					
+					
+					<table id="T_S_USER_DATAPERMIT" name="用户数据权限表"  compress="否" partition="否" volume="百" period="全部" notlog="否">
+						<rem> ==================================================================== 	</rem>
+						<rem> 用户数据权限表												</rem>
+						<rem> 输入人:张文杰      输入时间:2015.07.09  	</rem>
+						<rem> ==================================================================== 	</rem>
+						<column id="ID" type="VARCHAR" primaryKey="true" required="true" size="32" name="主键"/>
+						<column id="USER_ID"  type="VARCHAR" size="32" name="用户ID"/>
+						<column id="DATAPERMIT_TYPE"  type="VARCHAR" size="1" enum="1:用户;2:部门;" name="权限类型"/>
+						<column id="DATA_ORG_ID"  type="VARCHAR" size="32" name="部门数据权限对应主键"/>
+						<column id="DATA_USER_ID"  type="VARCHAR" size="32" name="用户数据权限对应主键"/>
+						<foreign-key foreignTable="T_S_DEPART" noSql="true">
+							<reference local="DATA_ORG_ID" foreign="ID"/>
+						</foreign-key>		
+						<foreign-key foreignTable="T_S_BASE_USER" noSql="true">
+							<reference local="DATA_USER_ID" foreign="ID"/>
+						</foreign-key>											
+					</table>										
+																				
+		</submodule>
+	</module>
+	
+  </subsystem>
+  
+  </database>
+</app-data>
